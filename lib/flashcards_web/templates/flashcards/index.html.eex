@@ -1,3 +1,14 @@
-<div class="phx-hero">
-  <h2>Index of flashcards</h2>
+<div class="section">
+  <a class="btn-floating btn-large waves-effect">
+    <i class="material-icons">add</i>
+  </a>
+</div>
+<div class="section">
+  <div class="row">
+    <%= for card <- @cards do %>
+      <div class="col s6 m3">
+        <%= render_card(card) %>
+      </div>
+    <% end %>
+  </div>
 </div>
