@@ -68,8 +68,8 @@ config :phoenix, :plug_init_mode, :runtime
 
 # Configure your database
 config :flashcards, Flashcards.Repo,
-  username: "postgres",
-  password: "postgres",
+  username: "flashcards",
+  password: "flashcards",
   database: "flashcards_dev",
-  hostname: "localhost",
+  hostname: "127.0.0.1",
   pool_size: 10

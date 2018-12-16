@@ -1,0 +1,38 @@
+= Flashcards
+
+== Setup
+
+=== Postgres
+We must create a postgresql role `flashcards` that can access the postgresql server on `127.0.0.1` using MD5 authentication. The following steps achieve that, assuming the postgres role itself uses peer authentication:
+
+[source,bash]
+----
+# Create the flashcards user with (-d) the right to create databases
+sudo -u postgres createuser -d flashcards
+
+# Give the user an obvious, insecure password for dev and test
+sudo -u postgres psql -c "alter user flashcards with encrypted password 'flashcards';"
+----
+
+For dev and test, the flashcards role uses a password of the same name. We can use something else in production, using the (not committed) production ecto configuration.
+
+== Launch The Server (Canned Phoenix README below)
+
+To start your Phoenix server:
+
+  * Install dependencies with `mix deps.get`
+  * Create and migrate your database with `mix ecto.setup`
+  * Install Node.js dependencies with `cd assets && npm install`
+  * Start Phoenix endpoint with `mix phx.server`
+
+Now you can visit http://localhost:4000[`localhost:4000`] from your browser.
+
+Ready to run in production? Please https://hexdocs.pm/phoenix/deployment.html[check our deployment guides].
+
+== Learn more
+
+  * Official website: http://www.phoenixframework.org/
+  * Guides: https://hexdocs.pm/phoenix/overview.html
+  * Docs: https://hexdocs.pm/phoenix
+  * Mailing list: http://groups.google.com/group/phoenix-talk
+  * Source: https://github.com/phoenixframework/phoenix

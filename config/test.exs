@@ -11,8 +11,8 @@ config :logger, level: :warn
 
 # Configure your database
 config :flashcards, Flashcards.Repo,
-  username: "postgres",
-  password: "postgres",
+  username: "flashcards",
+  password: "flashcards",
   database: "flashcards_test",
-  hostname: "localhost",
+  hostname: "127.0.0.1",
   pool: Ecto.Adapters.SQL.Sandbox
