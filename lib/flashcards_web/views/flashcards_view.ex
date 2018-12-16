@@ -1,7 +1,8 @@
 defmodule FlashcardsWeb.FlashcardsView do
   use FlashcardsWeb, :view
+  alias Flashcards.Card
 
-  def render_card({id, title, content}) do
-    render("card.html", [id: id, title: title, content: content])
+  def render_card(%Card{front: front, back: back}) do
+    render("card.html", [front: front, back: back])
   end
 end

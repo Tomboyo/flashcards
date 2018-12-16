@@ -1,5 +1,6 @@
 <div class="section">
-  <a class="btn-floating btn-large waves-effect">
+  <a class="btn-floating btn-large waves-effect"
+     href="<%= Routes.flashcards_path(@conn, :new) %>">
     <i class="material-icons">add</i>
   </a>
 </div>
