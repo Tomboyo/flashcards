@@ -16,7 +16,8 @@ defmodule FlashcardsWeb.Router do
   scope "/", FlashcardsWeb do
     pipe_through :browser
 
-    get "/", PageController, :index
+    get "/", FlashcardsController, :index
+    resources "/flashcard", FlashcardsController
   end
 
   # Other scopes may use custom stacks.
