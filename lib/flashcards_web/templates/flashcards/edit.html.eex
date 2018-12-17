@@ -9,22 +9,24 @@
       <div class="input-field col s12">
         <textarea id="front"
         class="materialize-textarea"
-        name="front">
-        </textarea>
+        name="front"><%= @front %></textarea>
         <label for="front">Front</label>
       </div>
       <div class="input-field col s12">
         <textarea id="back"
         class="materialize-textarea"
-        name="back"></textarea>
+        name="back"><%= @back %></textarea>
         <label for="back">Back</label>
       </div>
     </div>
     <div class="row">
-      <input class="btn waves-effect"
+      <input class="btn waves-effect left"
       type="submit"
-      value="Save!"
-      />
+      value="Save"/>
+      <a class="btn waves-effect right"
+      href="<%= Routes.flashcards_path(@conn, :index) %>">
+        Cancel
+      </a>
     </div>
   </form>
 </div>
