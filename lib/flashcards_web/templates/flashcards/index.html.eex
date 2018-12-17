@@ -8,7 +8,7 @@
   <div class="row">
     <%= for card <- @cards do %>
       <div class="col s6 m3">
-        <%= render_card(card) %>
+        <%= render_card(@conn, card) %>
       </div>
     <% end %>
   </div>
