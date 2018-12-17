@@ -3,20 +3,29 @@ defmodule FlashcardsWeb.FlashcardsController do
   alias Flashcards.{Repo, Card}
 
   def index(conn, _params) do
-    cards = get_cards()
+    cards = Repo.all(Card)
     render(conn, "index.html", [conn: conn, cards: cards])
   end
 
-  defp get_cards() do
-    Repo.all(Card)
+  def new(conn, _params) do
+    render(conn, "new.html", [
+      csrf_token: get_csrf_token(),
+      form_submit_path: Routes.flashcards_path(conn, :create)
+    ])
   end
 
-  def new(conn, _params) do
-    conn = case Repo.insert(%Card{}) do
-      {:ok, _card} -> conn
-      _ -> put_flash(conn, :error, "Could not create flashcard :(")
+  # PUT and PATCH are tunneled through POST
+  def create(conn, params) do
+    if Map.has_key?(params, :_method) do
+      case params do
+        %{_method: "PUT"}   -> edit_submit(conn, params)
+        %{_method: "PATCH"} -> edit_submit(conn, params)
+      end
+    else
+      %{"front" => front, "back" => back} = params
+      Repo.insert(%Card{front: front, back: back})
+      redirect(conn, to: Routes.flashcards_path(conn, :index))
     end
-    redirect(conn, to: Routes.flashcards_path(conn, :index))
   end
 
   def edit(conn, %{"id" => id}) do
@@ -24,16 +33,13 @@ defmodule FlashcardsWeb.FlashcardsController do
     render(conn, "edit.html", [
       front: front,
       back: back,
-      id: id,
-      csrf_token: get_csrf_token()
+      csrf_token: get_csrf_token(),
+      form_submit_path: Routes.flashcards_path(conn, :update, id)
     ])
   end
 
-  def show(conn, params) do
-    case params do
-      %{_method: _method} -> redirect conn, to: Routes.flashcards_path(conn, :update)
-      _ -> redirect conn, to: Routes.flashcards_path(conn, :index)
-    end
+  defp edit_submit(conn, _params) do
+    redirect conn, to: Routes.flashcards_path(conn, :update)
   end
 
   def update(conn, %{"id" => id, "front" => front, "back" => back}) do

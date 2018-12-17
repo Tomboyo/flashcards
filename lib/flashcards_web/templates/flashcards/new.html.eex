@@ -4,25 +4,24 @@
   method="POST"
   >
     <input type="hidden" name="_csrf_token" value="<%= @csrf_token %>">
-    <input type="hidden" name="_method" value="PATCH">
     <div class="row">
       <div class="input-field col s12">
         <textarea id="front"
         class="materialize-textarea"
-        name="front"><%= @front %></textarea>
+        name="front"></textarea>
         <label for="front">Front</label>
       </div>
       <div class="input-field col s12">
         <textarea id="back"
         class="materialize-textarea"
-        name="back"><%= @back %></textarea>
+        name="back"></textarea>
         <label for="back">Back</label>
       </div>
     </div>
     <div class="row">
       <input class="btn waves-effect left"
       type="submit"
-      value="Save"/>
+      value="Create"/>
       <a class="btn waves-effect right"
       href="<%= Routes.flashcards_path(@conn, :index) %>">
         Cancel
