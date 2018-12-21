@@ -14,20 +14,6 @@ defmodule FlashcardsWeb.FlashcardsController do
     ])
   end
 
-  # PUT and PATCH are tunneled through POST
-  def create(conn, params) do
-    if Map.has_key?(params, :_method) do
-      case params do
-        %{_method: "PUT"}   -> edit_submit(conn, params)
-        %{_method: "PATCH"} -> edit_submit(conn, params)
-      end
-    else
-      %{"front" => front, "back" => back} = params
-      Repo.insert(%Card{front: front, back: back})
-      redirect(conn, to: Routes.flashcards_path(conn, :index))
-    end
-  end
-
   def edit(conn, %{"id" => id}) do
     %Card{front: front, back: back} = Repo.get(Card, id)
     render(conn, "edit.html", [
@@ -38,8 +24,14 @@ defmodule FlashcardsWeb.FlashcardsController do
     ])
   end
 
-  defp edit_submit(conn, _params) do
-    redirect conn, to: Routes.flashcards_path(conn, :update)
+  # Form data for PUT and PATCH are tunneled through POST
+  def create(conn, %{_method: "PUT"} = params),
+      do: update(conn, params)
+  def create(conn, %{_method: "PATCH"} = params),
+      do: update(conn, params)
+  def create(conn, %{"front" => front, "back" => back}) do
+    Repo.insert(%Card{front: front, back: back})
+    redirect(conn, to: Routes.flashcards_path(conn, :index))
   end
 
   def update(conn, %{"id" => id, "front" => front, "back" => back}) do
