@@ -8,7 +8,7 @@
   <%= for row <- Enum.chunk_every(@cards, 3) do %>
     <div class="row">
       <%= for card <- row do %>
-        <div class="col s6 m3">
+        <div class="col s6 m4">
           <%= render_card(@conn, @csrf_token, card) %>
         </div>
       <% end %>

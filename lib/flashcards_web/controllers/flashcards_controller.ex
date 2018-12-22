@@ -14,7 +14,6 @@ defmodule FlashcardsWeb.FlashcardsController do
   def create_page(conn, _params) do
     render(conn, "new.html", [
       csrf_token: get_csrf_token(),
-      form_submit_path: Routes.flashcards_path(conn, :create)
     ])
   end
 
@@ -28,12 +27,26 @@ defmodule FlashcardsWeb.FlashcardsController do
     ])
   end
 
-  def create(conn, %{"front" => front, "back" => back}) do
-    Repo.insert(%Card{front: front, back: back})
-    redirect(conn, to: Routes.flashcards_path(conn, :index_page))
+  def show_page(conn, %{"id" => id}) do
+    %Card{front: front, back: back} = Repo.get(Card, id)
+    render(conn, "show.html", [
+      id: id,
+      front: front,
+      back: back,
+      csrf_token: get_csrf_token()
+    ])
   end
 
-  def edit(conn, %{"id" => id, "front" => front, "back" => back}) do
+  def create(conn, %{"front" => front, "back" => back}) do
+    Repo.insert(%Card{front: front, back: back})
+    redirect conn, to: Routes.flashcards_path(conn, :index_page)
+  end
+
+  def edit(conn, %{
+    "id" => id,
+    "front" => front,
+    "back" => back
+  }) do
     {id, _} = Integer.parse(id)
 
     Repo.get(Card, id)
