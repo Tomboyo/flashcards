@@ -1,6 +1,6 @@
 <div class="row">
   <form class="col s12"
-  action="<%= @form_submit_path %>"
+  action="<%= Routes.flashcards_path(@conn, :create) %>"
   method="POST"
   >
     <input type="hidden" name="_csrf_token" value="<%= @csrf_token %>">
@@ -23,7 +23,7 @@
       type="submit"
       value="Create"/>
       <a class="btn waves-effect right"
-      href="<%= Routes.flashcards_path(@conn, :index) %>">
+      href="<%= Routes.flashcards_path(@conn, :index_page) %>">
         Cancel
       </a>
     </div>

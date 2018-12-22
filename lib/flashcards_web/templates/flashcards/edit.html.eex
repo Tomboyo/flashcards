@@ -1,10 +1,10 @@
 <div class="row">
   <form class="col s12"
-  action="<%= @form_submit_path %>"
+  action="<%= Routes.flashcards_path(@conn, :edit) %>"
   method="POST"
   >
     <input type="hidden" name="_csrf_token" value="<%= @csrf_token %>">
-    <input type="hidden" name="_method" value="PATCH">
+    <input type="hidden" name="id" value="<%= @id %>">
     <div class="row">
       <div class="input-field col s12">
         <textarea id="front"
@@ -24,7 +24,7 @@
       type="submit"
       value="Save"/>
       <a class="btn waves-effect right"
-      href="<%= Routes.flashcards_path(@conn, :index) %>">
+      href="<%= Routes.flashcards_path(@conn, :index_page) %>">
         Cancel
       </a>
     </div>

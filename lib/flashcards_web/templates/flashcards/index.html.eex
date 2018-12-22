@@ -1,6 +1,6 @@
 <div class="section">
   <a class="btn-floating btn-large waves-effect"
-     href="<%= Routes.flashcards_path(@conn, :new) %>">
+     href="<%= Routes.flashcards_path(@conn, :create_page) %>">
     <i class="material-icons">add</i>
   </a>
 </div>
@@ -9,7 +9,7 @@
     <div class="row">
       <%= for card <- row do %>
         <div class="col s6 m3">
-          <%= render_card(@conn, card) %>
+          <%= render_card(@conn, @csrf_token, card) %>
         </div>
       <% end %>
     </div>
